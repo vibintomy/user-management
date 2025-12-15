@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manage_x/core/responsive/responsive.dart';
 
 class CustomButton extends StatelessWidget {
   final String label;
@@ -16,14 +17,18 @@ class CustomButton extends StatelessWidget {
     this.backgroundColor,
     this.height = 50,
     this.width = 150,
-    this.borderRadius = 12,
+    this.borderRadius = 30,
     this.labelColor
   });
   @override
   Widget build(BuildContext context) {
+     final bool isWeb = Responsive.isWeb(context);
+
+    final double buttonHeight = isWeb ? height + 10 : height;
+    final double buttonWidth = isWeb ? width + 15 : width;
     return SizedBox(
-      height: height,
-      width: width,
+      height: buttonHeight,
+      width: buttonWidth,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,

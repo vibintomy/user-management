@@ -2,6 +2,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:manage_x/core/constants/app_colors.dart';
 
 class CustomTopDesign extends StatelessWidget {
   const CustomTopDesign({super.key});
@@ -20,7 +21,7 @@ class TopDesignPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Left green circle
     final greenPaint = Paint()
-      ..color = const Color(0xFF00C853)
+      ..color = AppColors.green
       ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(size.width * 0.08, size.height * 0.35),
@@ -30,7 +31,7 @@ class TopDesignPainter extends CustomPainter {
 
     // Left blue-purple circle (behind green)
     final bluePurplePaint = Paint()
-      ..color = const Color(0xFF5C6BC0)
+      ..color = AppColors.bluePurple
       ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(size.width * 0.08, size.height * 0.65),
@@ -40,7 +41,7 @@ class TopDesignPainter extends CustomPainter {
 
     // Left cyan circle
     final cyanPaint = Paint()
-      ..color = const Color(0xFF00BCD4)
+      ..color = AppColors.cyan
       ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(size.width * 0.18, size.height * 0.4),
@@ -50,7 +51,7 @@ class TopDesignPainter extends CustomPainter {
 
     // Right magenta circle
     final magentaPaint = Paint()
-      ..color = const Color(0xFFD500F9)
+      ..color = AppColors.magenta
       ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(size.width * 0.88, size.height * 0.35),
@@ -60,7 +61,7 @@ class TopDesignPainter extends CustomPainter {
 
     // Right dark blue circle (overlapping magenta)
     final darkBluePaint = Paint()
-      ..color = const Color(0xFF1A237E)
+      ..color = AppColors.darkBlue
       ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(size.width * 0.80, size.height * 0.65),
@@ -68,7 +69,7 @@ class TopDesignPainter extends CustomPainter {
       darkBluePaint,
     );
      final darkVioletPaint = Paint()
-      ..color =Colors.purple
+      ..color =AppColors.purple
       ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(size.width * 0.92, size.height * 0.63),
@@ -82,14 +83,14 @@ class TopDesignPainter extends CustomPainter {
       ..strokeWidth = 2.0;
 
     // Purple Squares (Largest - size 12)
-    shapePaint.color = const Color(0xFF9C27B0);
+    shapePaint.color = AppColors.purple;
     _drawRotatedSquare(canvas, Offset(size.width * 0.35, size.height * 0.2), 12, shapePaint);
     _drawRotatedSquare(canvas, Offset(size.width * 0.52, size.height * 0.6), 12, shapePaint);
     _drawRotatedSquare(canvas, Offset(size.width * 0.65, size.height * 0.8), 12, shapePaint);
     _drawRotatedSquare(canvas, Offset(size.width * 0.85, size.height * 0.88), 11, shapePaint);
 
     // Blue Circles (Medium - radius 5)
-    shapePaint.color = const Color(0xFF2196F3);
+    shapePaint.color = AppColors.blue;
     canvas.drawCircle(Offset(size.width * 0.42, size.height * 0.35), 5, shapePaint);
     canvas.drawCircle(Offset(size.width * 0.48, size.height * 0.75), 5, shapePaint);
     canvas.drawCircle(Offset(size.width * 0.58, size.height * 0.25), 5, shapePaint);
@@ -97,7 +98,7 @@ class TopDesignPainter extends CustomPainter {
     canvas.drawCircle(Offset(size.width * 0.12, size.height * 1), 5, shapePaint);
 
     // Gold Triangles (Smallest - size 8)
-    shapePaint.color = const Color(0xFFFFD700);
+    shapePaint.color = AppColors.gold;
     _drawTriangle(canvas, Offset(size.width * 0.45, size.height * 0.15), 8, shapePaint);
     _drawTriangle(canvas, Offset(size.width * 0.55, size.height * 0.5), 8, shapePaint);
     _drawTriangle(canvas, Offset(size.width * 0.62, size.height * 0.85), 8, shapePaint);
@@ -145,7 +146,7 @@ class TopRightCirclesPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Green circle (top left)
     final greenPaint = Paint()
-      ..color = const Color(0xFF00E676)
+      ..color = AppColors.lightGreen
       ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(size.width * 0.35, size.height * 0.25),
@@ -155,7 +156,7 @@ class TopRightCirclesPainter extends CustomPainter {
 
     // Blue-purple circle (bottom left)
     final bluePurplePaint = Paint()
-      ..color = const Color(0xFF5C6BC0)
+      ..color = AppColors.bluePurple
       ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(size.width * 0.35, size.height * 0.55),
@@ -165,7 +166,7 @@ class TopRightCirclesPainter extends CustomPainter {
 
     // Cyan circle (right side, partially cut off)
     final cyanPaint = Paint()
-      ..color = const Color(0xFF00BCD4)
+      ..color = AppColors.cyan
       ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(size.width * 0.75, size.height * 0.4),
@@ -193,7 +194,7 @@ class BottomRightDesignPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = const Color(0xFF0D4D4D)
+      ..color = AppColors.darkTeal
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(
@@ -216,6 +217,7 @@ class CustomTopRightDesign extends StatelessWidget {
       height: 160, 
       child: CustomPaint(
         painter: TopRightDesignPainter(),
+        
       ),
     );
   }
@@ -225,7 +227,7 @@ class TopRightDesignPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = const Color(0xFFE1E6ED)
+      ..color = AppColors.lightGreyBackground
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(
@@ -260,7 +262,7 @@ class BottomLeftDesignPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = const Color(0xFFE1E6ED)
+      ..color = AppColors.lightGreyBackground
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(
@@ -284,9 +286,13 @@ class CustomDottedBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-     
-      painter: DottedBackgroundPainter(),
+    return SizedBox(
+      height: 220,
+      width: 220,
+      child: CustomPaint(
+       
+        painter: DottedBackgroundPainter(),
+      ),
     );
   }
 }
@@ -295,7 +301,7 @@ class DottedBackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final dotPaint = Paint()
-      ..color = const Color(0xFFD0D0D0)
+      ..color = AppColors.dottedGrey
       ..style = PaintingStyle.fill;
 
     const double dotRadius = 4.0;
