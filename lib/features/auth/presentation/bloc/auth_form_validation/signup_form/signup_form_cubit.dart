@@ -1,83 +1,79 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'signup_form_state.dart';
-
 class SignupFormCubit extends Cubit<SignupFormState> {
   SignupFormCubit() : super(const SignupFormState());
+  void nameChanged(String value) {
+  emit(state.copyWith(
+    name: value,
+    nameError: value.isEmpty
+        ? 'Name is required'
+        : value.length < 3
+            ? 'Name must be at least 3 characters'
+            : null,
+  ));
+}
 
-  // ---------------- EMAIL ----------------
+
   void emailChanged(String value) {
-    String? error;
-
-    if (value.isEmpty) {
-      error = 'Email is required';
-    } else if (!_isValidEmail(value)) {
-      error = 'Enter a valid email';
-    }
-
     emit(state.copyWith(
       email: value,
-      emailError: error,
+      emailError: value.isEmpty
+          ? 'Email is required'
+          : !_isValidEmail(value)
+              ? 'Enter a valid email'
+              : null,
     ));
   }
 
-  // ---------------- PASSWORD ----------------
   void passwordChanged(String value) {
-    String? error;
-
-    if (value.isEmpty) {
-      error = 'Password is required';
-    } else if (value.length < 6) {
-      error = 'Password must be at least 6 characters';
-    }
-
     emit(state.copyWith(
       password: value,
-      passwordError: error,
+      passwordError: value.isEmpty
+          ? 'Password is required'
+          : value.length < 6
+              ? 'Password must be at least 6 characters'
+              : null,
     ));
   }
 
-  // ---------------- JOB ID ----------------
   void idChanged(String value) {
-    String? error;
-
-    if (value.isEmpty) {
-      error = 'Job ID is required';
-    } else if (value.length < 3) {
-      error = 'Job ID must be at least 3 characters';
-    }
-
     emit(state.copyWith(
       id: value,
-      idError: error,
+      idError: value.isEmpty
+          ? 'Employee ID is required'
+          : value.length < 3
+              ? 'Employee ID must be at least 3 characters'
+              : null,
     ));
   }
 
-  // ---------------- ROLE ----------------
   void roleChanged(String value) {
-    String? error;
-
-    if (value.isEmpty) {
-      error = 'Role is required';
-    }
-
     emit(state.copyWith(
       role: value,
-      roleError: error,
+      roleError: value.isEmpty ? 'Role is required' : null,
     ));
   }
 
-  // ---------------- SUBMIT ----------------
+  void departmentChanged(String value) {
+  emit(state.copyWith(
+    department: value,
+    departmentError:
+        value.isEmpty ? 'Department is required' : null,
+  ));
+}
+
+
   void submit() {
     emailChanged(state.email);
     passwordChanged(state.password);
     idChanged(state.id);
     roleChanged(state.role);
+    departmentChanged(state.department);
   }
-
-  // ---------------- HELPERS ----------------
+void reset() {
+    emit(const SignupFormState());
+  }
   bool _isValidEmail(String email) {
-    return RegExp(
-      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-    ).hasMatch(email);
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
   }
 }

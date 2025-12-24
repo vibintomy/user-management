@@ -18,31 +18,33 @@ class SignupMobileView extends StatelessWidget {
               top: 0,
               right: 0,
               child: CustomTopRightCircles()),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-              
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(
-                          "Sign UP",  
-                          style: TextStyle(
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            "Sign UP",  
+                            style: TextStyle(
+                              color: AppColors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            ),
                           ),
                         ),
-                      ),
-                   kheight20,
-                      SignupForm(),
-                    ],
+                     kheight20,
+                        SignupForm(),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const Positioned(
               bottom: 0,

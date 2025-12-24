@@ -11,7 +11,7 @@ class AppPageTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppText(
       text,
-      style: Theme.of(context).textTheme.displayLarge,
+      style: Theme.of(context).textTheme.displaySmall,
     );
   }
 }
