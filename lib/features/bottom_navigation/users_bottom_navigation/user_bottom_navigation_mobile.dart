@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:manage_x/features/admin/presentation/pages/home/admin_home_screen.dart';
 import 'package:manage_x/features/admin/presentation/pages/user_request/user_request_screen.dart';
 
-class AdminBottomNavigationMobile extends StatefulWidget {
-  const AdminBottomNavigationMobile({super.key});
+class UserBottomNavigationMobile extends StatefulWidget {
+  const UserBottomNavigationMobile({super.key});
 
   @override
-  State<AdminBottomNavigationMobile> createState() => _AdminBottomNavigationMobileState();
+  State<UserBottomNavigationMobile> createState() => _UserBottomNavigationMobileState();
 }
 
-class _AdminBottomNavigationMobileState extends State<AdminBottomNavigationMobile> {
+class _UserBottomNavigationMobileState extends State<UserBottomNavigationMobile> {
   int _selectedIndex = 0;
 
   // List of pages corresponding to each tab

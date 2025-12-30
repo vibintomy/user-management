@@ -17,6 +17,7 @@ import 'package:manage_x/features/auth/presentation/bloc/password_visibility_blo
 import 'package:manage_x/features/auth/presentation/pages/pending_approval.dart';
 import 'package:manage_x/features/auth/presentation/pages/signup.dart';
 import 'package:manage_x/features/auth/presentation/views/login_view/pending_approval_web.dart';
+import 'package:manage_x/features/bottom_navigation/admin_bottom_navigation/admin_bottom_navigation.dart';
 import 'package:manage_x/features/bottom_navigation/admin_bottom_navigation/admin_bottom_navigation_web.dart';
 import 'package:manage_x/features/home/homepage.dart';
 
@@ -95,7 +96,7 @@ class _LoginFormState extends State<LoginForm> {
       listener: (context, state) {
         if (state is Authenticated) {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const AdminBottomNavigationWeb()),
+            MaterialPageRoute(builder: (_) => const AdminBottomNavigation()),
           );
         } else if (state is PendingApproval) {
           Navigator.push(

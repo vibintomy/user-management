@@ -4,14 +4,14 @@ import 'package:manage_x/core/widgets/spacing.dart';
 import 'package:manage_x/features/admin/presentation/pages/home/admin_home_screen.dart';
 import 'package:manage_x/features/admin/presentation/pages/user_request/user_request_screen.dart';
 
-class AdminBottomNavigationWeb extends StatefulWidget {
-  const AdminBottomNavigationWeb({super.key});
+class UserBottomNavigationWeb extends StatefulWidget {
+  const UserBottomNavigationWeb({super.key});
 
   @override
-  State<AdminBottomNavigationWeb> createState() => _AdminBottomNavigationWebState();
+  State<UserBottomNavigationWeb> createState() => _UserBottomNavigationWebState();
 }
 
-class _AdminBottomNavigationWebState extends State<AdminBottomNavigationWeb> {
+class _UserBottomNavigationWebState extends State<UserBottomNavigationWeb> {
   int _selectedIndex = 0; // Default to home (second icon) - only for main items
 
   final List<IconData> _icons = [
