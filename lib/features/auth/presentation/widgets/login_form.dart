@@ -11,15 +11,12 @@ import 'package:manage_x/core/widgets/spacing.dart';
 import 'package:manage_x/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:manage_x/features/auth/presentation/bloc/auth_bloc/auth_event.dart';
 import 'package:manage_x/features/auth/presentation/bloc/auth_bloc/auth_state.dart';
-import 'package:manage_x/features/auth/presentation/bloc/auth_form_validation/login_form/login_form_cubit.dart';
-import 'package:manage_x/features/auth/presentation/bloc/auth_form_validation/login_form/login_form_state.dart';
 import 'package:manage_x/features/auth/presentation/bloc/password_visibility_bloc/password_visibility_cubit.dart';
 import 'package:manage_x/features/auth/presentation/pages/pending_approval.dart';
 import 'package:manage_x/features/auth/presentation/pages/signup.dart';
-import 'package:manage_x/features/auth/presentation/views/login_view/pending_approval_web.dart';
 import 'package:manage_x/features/bottom_navigation/admin_bottom_navigation/admin_bottom_navigation.dart';
-import 'package:manage_x/features/bottom_navigation/admin_bottom_navigation/admin_bottom_navigation_web.dart';
-import 'package:manage_x/features/home/homepage.dart';
+import 'package:manage_x/features/bottom_navigation/lead_bottom_navigation/lead_bottom_navigation.dart';
+import 'package:manage_x/features/bottom_navigation/users_bottom_navigation/user_bottom_navigation.dart';
 
 // ignore: must_be_immutable
 class LoginForm extends StatefulWidget {
@@ -65,39 +62,46 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-   void _login() {
-  if (_formKey.currentState!.validate()) {
-    final fcmToken = sl<NotificationService>().fcmToken;
-    final email = _emailController.text.trim();
-    
-    // Check if admin email
-    if (email == 'admin@company.com') {
-      // Use Admin Login
-      context.read<AuthBloc>().add(
-        AdminLoginEvent(
-          email: email,
-          password: _passwordController.text,
-        ),
-      );
-    } else {
-      // Use User/Lead Login
-      context.read<AuthBloc>().add(
-        LoginEvent(
-          email: email,
-          password: _passwordController.text,
-          fcmToken: fcmToken,
-        ),
-      );
+    void _login() {
+      if (_formKey.currentState!.validate()) {
+        final fcmToken = sl<NotificationService>().fcmToken;
+        final email = _emailController.text.trim();
+
+        // Check if admin email
+        if (email == 'admin@company.com') {
+          // Use Admin Login
+          context.read<AuthBloc>().add(
+            AdminLoginEvent(email: email, password: _passwordController.text),
+          );
+        } else {
+          // Use User/Lead Login
+          context.read<AuthBloc>().add(
+            LoginEvent(
+              email: email,
+              password: _passwordController.text,
+              fcmToken: fcmToken,
+            ),
+          );
+        }
+      }
     }
-  }
-}
 
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is Authenticated) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const AdminBottomNavigation()),
-          );
+          if (state.user.role == 'admin') {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => const AdminBottomNavigation()),
+            );
+          } else if (state.user.role == 'lead') {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => const LeadBottomNavigation()),
+            );
+          } else {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => const UserBottomNavigation()),
+            );
+          }
         } else if (state is PendingApproval) {
           Navigator.push(
             context,
@@ -107,7 +111,7 @@ class _LoginFormState extends State<LoginForm> {
           ScaffoldMessenger.of(context).showSnackBar(
             showAwesomeSnackBar(
               title: "Error",
-              message: "Login Failed!!..",
+              message: state.message ?? "Login failed",
               contentType: ContentType.failure,
             ),
           );
@@ -123,9 +127,7 @@ class _LoginFormState extends State<LoginForm> {
               CustomTextField(
                 label: 'Email',
                 controller: _emailController,
-                validator: (value) {
-                  _emailValidator(value);
-                },
+                validator: _emailValidator,
               ),
               kheight15,
               BlocBuilder<PasswordVisibilityCubit, bool>(
@@ -134,9 +136,7 @@ class _LoginFormState extends State<LoginForm> {
                     label: 'Password',
                     controller: _passwordController,
                     obscureText: !isVisible,
-                    validator: (value) {
-                      _passwordValidator(value);
-                    },
+                    validator: _passwordValidator,
                     suffixIcon: IconButton(
                       icon: Icon(
                         isVisible ? Icons.visibility : Icons.visibility_off,
@@ -153,7 +153,7 @@ class _LoginFormState extends State<LoginForm> {
                 labelColor: AppColors.white,
                 backgroundColor: AppColors.darkBlue,
                 label: "LOGIN",
-          
+
                 onPressed: () {
                   _login();
                 },

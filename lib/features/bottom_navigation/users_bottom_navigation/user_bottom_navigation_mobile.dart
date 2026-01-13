@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:manage_x/features/admin/presentation/pages/home/admin_home_screen.dart';
 import 'package:manage_x/features/admin/presentation/pages/user_request/user_request_screen.dart';
+import 'package:manage_x/features/user/presentation/pages/user_homescreen.dart';
+import 'package:manage_x/features/user/presentation/pages/user_profile.dart';
+import 'package:manage_x/features/user/presentation/pages/user_stats.dart';
 
 class UserBottomNavigationMobile extends StatefulWidget {
   const UserBottomNavigationMobile({super.key});
@@ -14,9 +17,9 @@ class _UserBottomNavigationMobileState extends State<UserBottomNavigationMobile>
 
   // List of pages corresponding to each tab
   static const List<Widget> _pages = <Widget>[
-   AdminHomeScreen(),
-   UserRequestScreen(),
-    UserRequestScreen()
+ UserHomescreen(),
+ UserStats(),
+ UserProfile()
   ];
 
   void _onItemTapped(int index) {

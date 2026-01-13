@@ -12,6 +12,7 @@ import 'package:manage_x/features/auth/presentation/bloc/auth_bloc/auth_bloc.dar
 import 'package:manage_x/features/auth/presentation/bloc/auth_bloc/auth_event.dart';
 import 'package:manage_x/features/auth/presentation/bloc/auth_form_validation/signup_form/signup_form_cubit.dart';
 import 'package:manage_x/features/auth/presentation/bloc/password_visibility_bloc/password_visibility_cubit.dart';
+import 'package:manage_x/features/auth/presentation/pages/login.dart';
 import 'package:manage_x/features/auth/presentation/widgets/role_selector.dart';
 
 class SignupForm extends StatefulWidget {
@@ -118,7 +119,7 @@ class _SignupFormState extends State<SignupForm> {
           contentType: ContentType.success,
         ),
       );
-      Navigator.pop(context);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage()));
     }
     // If invalid, errors will show via validators and RoleSelector
   }

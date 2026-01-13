@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:manage_x/core/responsive/responsive.dart';
 
 class CustomButton extends StatelessWidget {
-  final String label;
-  final VoidCallback onPressed;
+  final String? label;
+  final Widget? child;
+  final VoidCallback? onPressed;
   final Color? backgroundColor;
   final double height;
   final double width;
@@ -12,14 +13,16 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton({
     super.key,
-    required this.label,
+    this.label,
+    this.child,
     required this.onPressed,
     this.backgroundColor,
     this.height = 50,
     this.width = 150,
     this.borderRadius = 30,
     this.labelColor
-  });
+  }) : assert(label != null || child != null, 'Either label or child must be provided');
+  
   @override
   Widget build(BuildContext context) {
      final bool isWeb = Responsive.isWeb(context);
@@ -37,7 +40,7 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(label,style: TextStyle(color: labelColor),),
+        child: child ?? Text(label!, style: TextStyle(color: labelColor)),
       ),
     );
   }
