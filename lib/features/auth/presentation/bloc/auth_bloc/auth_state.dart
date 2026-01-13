@@ -40,7 +40,7 @@ class PendingApproval extends AuthState {
 class AuthError extends AuthState {
   final String message;
 
-  const AuthError({required this.message});
+const AuthError({String? message}) : message = message ?? 'Login failed. Please try again.';
 
   @override
   List<Object?> get props => [message];

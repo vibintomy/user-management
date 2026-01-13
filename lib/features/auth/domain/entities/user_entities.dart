@@ -12,8 +12,8 @@ class UserEntity extends Equatable {
   final DateTime? approvedAt;
   final String? fcmToken;
   final DateTime? lastLogin;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime? createdAt;
+  final DateTime ?updatedAt;
 
   const UserEntity({
     required this.id,

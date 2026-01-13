@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manage_x/core/constants/app_colors.dart';
 import 'package:manage_x/core/widgets/custom_button.dart';
-import 'package:manage_x/core/widgets/custom_design.dart';
 import 'package:manage_x/core/widgets/spacing.dart';
 import 'package:manage_x/core/widgets/typography/body_text.dart';
 import 'package:manage_x/core/widgets/typography/page_title.dart';
@@ -39,7 +38,7 @@ class PendingApprovalWeb extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                         AppPageTitle('Pending Request...'),
+                         AppPageTitle('Pending Request...',AppColors.black),
                        Icon(Icons.alarm, size: 300, color: AppColors.dottedGrey),
 
                                   AppBodyText("Admin Approval Is Pending...."),
@@ -61,7 +60,7 @@ class PendingApprovalWeb extends StatelessWidget {
                                           style: TextStyle(fontSize: 12, color: Colors.blue.shade700),
                                         ),
                                       ),
-                                    ],
+                                    ],  
                                   ),
                                 ),
                                   kheight15,

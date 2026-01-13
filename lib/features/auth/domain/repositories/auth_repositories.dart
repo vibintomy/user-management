@@ -48,5 +48,5 @@ abstract class AuthRepository {
   Future<UserEntity?> getStoredUser();
 
   /// Clear local data
-  Future<void> clearLocalData();
+  Future<void> clearLocalAuthData();
 }

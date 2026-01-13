@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:manage_x/features/auth/domain/entities/user_entities.dart';
 
-
 class UserModel extends UserEntity {
   const UserModel({
     required super.id,
@@ -16,8 +15,8 @@ class UserModel extends UserEntity {
     super.approvedAt,
     super.fcmToken,
     super.lastLogin,
-    required super.createdAt,
-    required super.updatedAt,
+    super.createdAt,
+    super.updatedAt,
   });
 
   // From JSON
@@ -38,8 +37,13 @@ class UserModel extends UserEntity {
       lastLogin: json['lastLogin'] != null
           ? DateTime.parse(json['lastLogin'])
           : null,
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'])
+          : null,
+
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'])
+          : null,
     );
   }
 
@@ -57,8 +61,8 @@ class UserModel extends UserEntity {
       'approvedAt': approvedAt?.toIso8601String(),
       'fcmToken': fcmToken,
       'lastLogin': lastLogin?.toIso8601String(),
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
     };
   }
 

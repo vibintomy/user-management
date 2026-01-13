@@ -12,6 +12,7 @@ class AppColors {
   static const blue = Color(0xFF2196F3);
   static const gold = Color(0xFFFFD700);
   static const darkTeal = Color(0xFF0D4D4D);
+  static const pink = Color(0xFFFF8FB4);
 
   // Background / Neutral
   static const lightGreyBackground = Color(0xFFE1E6ED);
