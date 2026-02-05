@@ -4,6 +4,7 @@ import 'package:manage_x/features/admin/presentation/pages/user_request/user_req
 import 'package:manage_x/features/user/presentation/pages/user_homescreen.dart';
 import 'package:manage_x/features/user/presentation/pages/user_profile.dart';
 import 'package:manage_x/features/user/presentation/pages/user_stats.dart';
+import 'package:manage_x/features/user/presentation/view/user_homescreen_web.dart';
 
 class UserBottomNavigationMobile extends StatefulWidget {
   const UserBottomNavigationMobile({super.key});
@@ -18,7 +19,6 @@ class _UserBottomNavigationMobileState extends State<UserBottomNavigationMobile>
   // List of pages corresponding to each tab
   static const List<Widget> _pages = <Widget>[
  UserHomescreen(),
- UserStats(),
  UserProfile()
   ];
 
@@ -38,13 +38,10 @@ class _UserBottomNavigationMobileState extends State<UserBottomNavigationMobile>
             icon: Icon(Icons.home),
             label: 'Home',
           ),
+         
           BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Stats',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.exit_to_app),
-            label: 'Exit',
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,

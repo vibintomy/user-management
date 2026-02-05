@@ -22,6 +22,7 @@ abstract class LeadProjectRepository {
     DateTime? startDate,
     DateTime? endDate,
     String? notes,
+     List<String>? assignedUsers,
   });
   Future<Either<Failure, ModuleEntity>> updateModule({
     required String moduleId,

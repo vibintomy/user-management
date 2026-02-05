@@ -11,9 +11,10 @@ import 'package:manage_x/features/auth/presentation/bloc/auth_form_validation/lo
 import 'package:manage_x/features/auth/presentation/bloc/auth_form_validation/signup_form/signup_form_cubit.dart';
 import 'package:manage_x/features/auth/presentation/bloc/password_visibility_bloc/password_visibility_cubit.dart';
 import 'package:manage_x/features/auth/presentation/pages/login.dart';
-import 'package:manage_x/features/auth/presentation/pages/signup.dart';
 import 'package:manage_x/features/admin/presentation/bloc/admin_bloc.dart';
+import 'package:manage_x/features/lead/presentation/bloc/lead_project_bloc.dart';
 import 'package:manage_x/features/user/presentation/bloc/user_profile_bloc.dart';
+import 'package:manage_x/features/user/presentation/bloc/user_project_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +39,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_)=> sl<AuthBloc>()),
         BlocProvider(create: (_)=> sl<AdminBloc>()..add(GetPendingUsersEvent())),
         BlocProvider(create: (_)=> sl<ProjectBloc>()),
-        BlocProvider(create: (_)=> sl<ProfileBloc>())
+        BlocProvider(create: (_)=> sl<ProfileBloc>()),
+        BlocProvider(create: (_)=>sl<LeadProjectBloc>()),
+        BlocProvider(create: (_)=> sl<UserProjectBloc>())
       ],
       child: MaterialApp(
         theme: ThemeData(textTheme: GoogleFonts.interTextTheme()),

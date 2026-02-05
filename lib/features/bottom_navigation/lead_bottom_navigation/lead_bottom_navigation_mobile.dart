@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:manage_x/features/lead/presentation/pages/lead_homescreen.dart';
 import 'package:manage_x/features/lead/presentation/pages/lead_profile.dart';
-import 'package:manage_x/features/lead/presentation/pages/lead_stats.dart';
+
 
 class LeadBottomNavigationMobile extends StatefulWidget {
   const LeadBottomNavigationMobile({super.key});
@@ -16,7 +16,7 @@ class _LeadBottomNavigationMobileState extends State<LeadBottomNavigationMobile>
   // List of pages corresponding to each tab
   static const List<Widget> _pages = <Widget>[
    LeadHomescreen(),
-   LeadStats(),
+
    LeadProfile()
   ];
 
@@ -36,10 +36,7 @@ class _LeadBottomNavigationMobileState extends State<LeadBottomNavigationMobile>
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Stats',
-          ),
+          
           BottomNavigationBarItem(
             icon: Icon(Icons.exit_to_app),
             label: 'Exit',

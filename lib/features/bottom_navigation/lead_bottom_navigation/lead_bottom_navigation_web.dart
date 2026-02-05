@@ -17,19 +17,19 @@ class _LeadBottomNavigationWebState extends State<LeadBottomNavigationWeb> {
 
   final List<IconData> _icons = [
     Icons.home_outlined,
-    Icons.bar_chart_outlined,
+
     Icons.person_2_outlined
   ];
 
   final List<IconData> _selectedIcons = [
     Icons.home,
-    Icons.bar_chart,
+    
     Icons.person_2
  
   ];
   final List<Widget> _pages = const [
    LeadHomescreen(),
-   LeadStats(),
+ 
    LeadProfile()
  
 ];

@@ -27,14 +27,23 @@ class ProjectsLoaded extends LeadProjectState {
 class ProjectDetailsLoaded extends LeadProjectState {
   final ProjectEntity project;
   final List<ModuleEntity> modules;
+  final List<AvailableUserEntity> availableUsers;
+  final String? availableUsersError;
 
   const ProjectDetailsLoaded({
     required this.project,
     required this.modules,
+    this.availableUsers = const [],
+    this.availableUsersError,
   });
 
   @override
-  List<Object?> get props => [project, modules];
+  List<Object?> get props => [
+    project,
+    modules,
+    availableUsers,
+    availableUsersError,
+  ];
 }
 
 // Modules States
@@ -88,10 +97,7 @@ class UsersAssigned extends LeadProjectState {
   final ProjectEntity project;
   final String message;
 
-  const UsersAssigned({
-    required this.project,
-    required this.message,
-  });
+  const UsersAssigned({required this.project, required this.message});
 
   @override
   List<Object?> get props => [project, message];
@@ -101,10 +107,7 @@ class UserRemoved extends LeadProjectState {
   final ProjectEntity project;
   final String message;
 
-  const UserRemoved({
-    required this.project,
-    required this.message,
-  });
+  const UserRemoved({required this.project, required this.message});
 
   @override
   List<Object?> get props => [project, message];

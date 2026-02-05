@@ -1,4 +1,3 @@
-
 import 'package:manage_x/features/lead/domain/entities/module_entity.dart';
 
 class ModuleModel extends ModuleEntity {
@@ -11,8 +10,8 @@ class ModuleModel extends ModuleEntity {
     required double estimatedTime,
     required double actualTime,
     required int progress,
-    required String status,
-    required String priority,
+    String? status,           // ← changed to nullable
+    String? priority,         // ← changed to nullable
     DateTime? startDate,
     DateTime? endDate,
     required String createdBy,
@@ -28,8 +27,8 @@ class ModuleModel extends ModuleEntity {
           estimatedTime: estimatedTime,
           actualTime: actualTime,
           progress: progress,
-          status: status,
-          priority: priority,
+          status: status ?? 'pending',      // ← fallback when null
+          priority: priority ?? 'medium',   // ← fallback when null
           startDate: startDate,
           endDate: endDate,
           createdBy: createdBy,
@@ -40,31 +39,34 @@ class ModuleModel extends ModuleEntity {
 
   factory ModuleModel.fromJson(Map<String, dynamic> json) {
     return ModuleModel(
-      id: json['_id'] ?? json['id'] ?? '',
-      name: json['name'] ?? '',
-      description: json['description'],
+      id: json['_id']?.toString() ?? json['id']?.toString() ?? '',
+      name: json['name']?.toString() ?? 'Unnamed Module',
+      description: json['description']?.toString(),
       project: json['project'] is String
           ? json['project']
-          : json['project']?['_id'] ?? '',
-      assignedUsers: (json['assignedUsers'] as List?)
-              ?.map((e) => e is String ? e : e['_id'] as String)
+          : json['project']?['_id']?.toString() ?? '',
+      assignedUsers: (json['assignedUsers'] as List<dynamic>?)
+              ?.map((e) => (e is Map ? e['_id']?.toString() : e?.toString()) ?? '')
+              .where((id) => id.isNotEmpty)
               .toList() ??
           [],
-      estimatedTime: (json['estimatedTime'] ?? 0).toDouble(),
-      actualTime: (json['actualTime'] ?? 0).toDouble(),
-      progress: json['progress'] ?? 0,
-      status: json['status'] ?? 'pending',
-      priority: json['priority'] ?? 'medium',
+      estimatedTime: (json['estimatedTime'] as num?)?.toDouble() ?? 0.0,
+      actualTime: (json['actualTime'] as num?)?.toDouble() ?? 0.0,
+      progress: (json['progress'] as num?)?.toInt() ?? 0,
+      status: json['status']?.toString(),           // can be null now
+      priority: json['priority']?.toString(),       // can be null now
       startDate: json['startDate'] != null
-          ? DateTime.parse(json['startDate'])
+          ? DateTime.tryParse(json['startDate'].toString())
           : null,
-      endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
+      endDate: json['endDate'] != null
+          ? DateTime.tryParse(json['endDate'].toString())
+          : null,
       createdBy: json['createdBy'] is String
           ? json['createdBy']
-          : json['createdBy']?['_id'] ?? '',
-      notes: json['notes'],
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
+          : json['createdBy']?['_id']?.toString() ?? '',
+      notes: json['notes']?.toString(),
+      createdAt: DateTime.tryParse(json['createdAt']?.toString() ?? '') ?? DateTime.now(),
+      updatedAt: DateTime.tryParse(json['updatedAt']?.toString() ?? '') ?? DateTime.now(),
     );
   }
 

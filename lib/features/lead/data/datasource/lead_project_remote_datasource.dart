@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:manage_x/core/constants/api_constants.dart';
 import 'package:manage_x/core/errors/exceptions.dart';
@@ -205,23 +207,62 @@ class LeadProjectRemoteDataSourceImpl implements LeadProjectRemoteDataSource {
     }
   }
 
-  @override
-  Future<List<AvailableUserModel>> getAvailableUsers(String projectId) async {
-    try {
-      final response = await apiClient.dio.get(
-        ApiConstants.getAvailableUsers(projectId),
-      );
+ @override
+Future<List<AvailableUserModel>> getAvailableUsers(String projectId) async {
+  try {
+    final response = await apiClient.dio.get(
+      ApiConstants.getAvailableUsers(projectId),
+    );
 
-      if (response.statusCode == 200) {
-        final List<dynamic> data = response.data['data'] ?? response.data;
-        return data.map((json) => AvailableUserModel.fromJson(json)).toList();
-      } else {
-        throw ServerException('Failed to fetch available users');
+    if (response.statusCode == 200) {
+      // Handle different response formats
+      dynamic data = response.data;
+      
+      // If response has a 'data' wrapper
+      if (data is Map<String, dynamic> && data.containsKey('data')) {
+        data = data['data'];
       }
-    } on DioException catch (e) {
-      throw _handleDioError(e);
+      
+      // Ensure we have a list
+      if (data is! List) {
+        print('⚠️ Unexpected response format: ${data.runtimeType}');
+        print('Response data: $data');
+        return [];
+      }
+      
+      // Parse the list
+      final List<dynamic> userList = data;
+      print('✅ Found ${userList.length} available users');
+      
+      return userList
+          .map((json) {
+            try {
+              if (json is Map<String, dynamic>) {
+                return AvailableUserModel.fromJson(json);
+              } else {
+                print('⚠️ Invalid user data: ${json.runtimeType}');
+                return null;
+              }
+            } catch (e) {
+              print('❌ Error parsing user: $e');
+              print('User data: $json');
+              return null;
+            }
+          })
+          .whereType<AvailableUserModel>() // Filter out nulls
+          .toList();
+    } else {
+      throw ServerException('Failed to fetch available users');
     }
+  } on DioException catch (e) {
+    print('❌ DioException in getAvailableUsers: ${e.message}');
+    print('Response: ${e.response?.data}');
+    throw _handleDioError(e);
+  } catch (e) {
+    print('❌ Unexpected error in getAvailableUsers: $e');
+    throw ServerException('Unexpected error: $e');
   }
+}
 
   Exception _handleDioError(DioException e) {
     if (e.response?.statusCode == 401) {

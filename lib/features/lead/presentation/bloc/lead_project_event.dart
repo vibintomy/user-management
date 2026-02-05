@@ -38,6 +38,7 @@ class CreateModuleEvent extends LeadProjectEvent {
   final DateTime? startDate;
   final DateTime? endDate;
   final String? notes;
+   final List<String> assignedUsers;
 
   const CreateModuleEvent({
     required this.projectId,
@@ -48,6 +49,7 @@ class CreateModuleEvent extends LeadProjectEvent {
     this.startDate,
     this.endDate,
     this.notes,
+      this.assignedUsers = const [],
   });
 
   @override
@@ -60,6 +62,7 @@ class CreateModuleEvent extends LeadProjectEvent {
         startDate,
         endDate,
         notes,
+        assignedUsers
       ];
 }
 

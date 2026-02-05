@@ -39,13 +39,33 @@ import 'package:manage_x/features/admin/domain/usecases/reject_user_usecases.dar
 import 'package:manage_x/features/admin/domain/usecases/toggle_user_status_usecases.dart';
 import 'package:manage_x/features/admin/data/repository_impl/admin_repository_impl.dart';
 import 'package:manage_x/features/admin/data/datasources/admin_remote_datasource.dart';
+import 'package:manage_x/features/lead/data/datasource/lead_project_remote_datasource.dart';
+import 'package:manage_x/features/lead/data/repositories_impl/lead_project_repo_impl.dart';
+import 'package:manage_x/features/lead/domain/repositories/lead_project_repositories.dart';
+import 'package:manage_x/features/lead/domain/usecases/assign_users_usecases.dart';
+import 'package:manage_x/features/lead/domain/usecases/create_module_usecases.dart';
+import 'package:manage_x/features/lead/domain/usecases/delete_module_usecases.dart';
+import 'package:manage_x/features/lead/domain/usecases/get_available_users_usecases.dart';
+import 'package:manage_x/features/lead/domain/usecases/get_modules_by_project_usecases.dart';
+import 'package:manage_x/features/lead/domain/usecases/get_project_usecases.dart';
+import 'package:manage_x/features/lead/domain/usecases/remove_users_usecases.dart';
+import 'package:manage_x/features/lead/domain/usecases/update_module_progress_usecases.dart';
+import 'package:manage_x/features/lead/domain/usecases/update_module_usecases.dart';
+import 'package:manage_x/features/lead/presentation/bloc/lead_project_bloc.dart';
 import 'package:manage_x/features/user/data/datasources/profile_remote_datasource.dart';
+import 'package:manage_x/features/user/data/datasources/user_project_remote_datasource.dart';
 import 'package:manage_x/features/user/data/repositories/profile_repositories_impl.dart';
+import 'package:manage_x/features/user/data/repositories/user_project_repositories_impl.dart';
 import 'package:manage_x/features/user/domain/repositories/profile_repository.dart';
+import 'package:manage_x/features/user/domain/repositories/user_project_repository.dart';
+import 'package:manage_x/features/user/domain/usecases/get_my_project_usecases.dart';
+import 'package:manage_x/features/user/domain/usecases/get_project_modules_usecases.dart';
+import 'package:manage_x/features/user/domain/usecases/get_user_project_usecases.dart';
 import 'package:manage_x/features/user/domain/usecases/get_users_usecases.dart';
 import 'package:manage_x/features/user/domain/usecases/logout_from_profile_usecases.dart';
 import 'package:manage_x/features/user/domain/usecases/update_profile_usecases.dart';
 import 'package:manage_x/features/user/presentation/bloc/user_profile_bloc.dart';
+import 'package:manage_x/features/user/presentation/bloc/user_project_bloc.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -125,7 +145,62 @@ Future<void> initDependency() async {
   sl.registerLazySingleton(() => GetUsersUseCase(sl()));
   sl.registerLazySingleton(() => LogoutFromProfileUseCase(sl()));
   sl.registerLazySingleton(() => UpdateProfileUseCase(sl()));
+  sl.registerFactory(
+    () => LeadProjectBloc(
+      getAllProjectsUseCase: sl(),
+      getProjectUseCase: sl(),
+      getModulesByProjectUseCase: sl(),
+      createModuleUseCase: sl(),
+      updateModuleUseCase: sl(),
+      deleteModuleUseCase: sl(),
+      updateModuleProgressUseCase: sl(),
+      assignUsersToProjectUseCase: sl(),
+      removeUserFromProjectUseCase: sl(),
+      getAvailableUsersUseCase: sl(),
+    ),
+  );
+  sl.registerLazySingleton(() => GetProjectUseCase(sl()));
+  sl.registerLazySingleton(() => GetModulesByProjectUseCase(sl()));
+  sl.registerLazySingleton(() => CreateModuleUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateModuleUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteModuleUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateModuleProgressUseCase(sl()));
+  sl.registerLazySingleton(() => AssignUsersToProjectUseCase(sl()));
+  sl.registerLazySingleton(() => RemoveUserFromProjectUseCase(sl()));
+  sl.registerLazySingleton(() => GetAvailableUsersUseCase(sl()));
 
+  // Repository
+  sl.registerLazySingleton<LeadProjectRepository>(
+    () => LeadProjectRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<LeadProjectRemoteDataSource>(
+    () => LeadProjectRemoteDataSourceImpl(apiClient: sl()),
+  );
+
+  sl.registerFactory(
+    () => UserProjectBloc(
+      getMyProjectsUseCase: sl(),
+      getUserProjectDetailsUseCase: sl(),
+      getUserProjectModulesUseCase: sl(),
+      updateModuleProgressUseCase: sl(),
+    ),
+  );
+  sl.registerLazySingleton(() => GetMyProjectsUseCase(sl()));
+  sl.registerLazySingleton(() => GetUserProjectDetailsUseCase(sl()));
+  sl.registerLazySingleton(() => GetUserProjectModulesUseCase(sl()));
+
+
+  // Repository
+  sl.registerLazySingleton<UserProjectRepository>(
+    () => UserProjectRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<UserProjectRemoteDataSource>(
+    () => UserProjectRemoteDataSourceImpl(apiClient: sl()),
+  );
   // ============ Auth Repository ============
 
   sl.registerLazySingleton<AuthRepository>(

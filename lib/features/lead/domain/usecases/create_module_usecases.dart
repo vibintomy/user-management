@@ -17,6 +17,7 @@ class CreateModuleUseCase {
     DateTime? startDate,
     DateTime? endDate,
     String? notes,
+     List<String>? assignedUsers,
   }) async {
     return await repository.createModule(
       projectId: projectId,
@@ -27,6 +28,7 @@ class CreateModuleUseCase {
       startDate: startDate,
       endDate: endDate,
       notes: notes,
+       assignedUsers: assignedUsers,
     );
   }
 }

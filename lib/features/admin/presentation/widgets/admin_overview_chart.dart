@@ -76,6 +76,9 @@ class AdminOverviewChart extends StatelessWidget {
                               
                             ]
                     ),
+                   child:   Center(child: Align(
+                          alignment: AlignmentGeometry.center,
+                          child: Text('Admin\n Dashboard',style: TextStyle(color: AppColors.white,fontSize: 27),))),
                   ),
                 ),
               ],
@@ -135,77 +138,7 @@ class AdminOverviewChart extends StatelessWidget {
               ],
             ),
             kheight20,
-            Stack(
-              children: [
-              
-                Container(
-                  height: 228,
-                  width: 400,
-                  
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                     gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                       Colors.pinkAccent ,
-                                      const Color(0xFFE91E63)
-                
-                
-                                  ])
-                  ),
-                
-                ),
-                Container(
-                 height: 100,
-                  width: 400,                 
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    color: const Color(0xFFFF8FB4),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 4),
-                        spreadRadius: 0,
-                        blurRadius: 8,
-                        color: Colors.pink
-                      )
-                    ]
-                  ),
-                ),
-                 Positioned(
-                  top: 15,
-                  left: 15,
-                   child: Container(
-                   height: 70,
-                    width: 70,                 
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      color:  const Color(0xFFFFC2E0),
-
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 4),
-                          spreadRadius: 0,
-                          blurRadius: 8,
-                          color: const Color.fromARGB(255, 252, 143, 190)
-                        )
-                      ]
-                    ),
-                    child: Icon(Icons.schedule,color: AppColors.white,size: 50,),
-                                   ),
-                 ),
-                   Positioned(
-                  bottom: 0,
-             
-
-                  child: SizedBox(
-                    height: 150,
-                    width: 400,
-                    child: ClipRRect(
-                      borderRadius: BorderRadiusGeometry.circular(30),
-                      child: CustomWaveBackground()))),
-              ],
-            )
+           
           ],
           
         )

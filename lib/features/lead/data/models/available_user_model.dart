@@ -9,6 +9,7 @@ class AvailableUserModel extends AvailableUserEntity {
     required String department,
     String? phone,
     required bool isActive,
+   
   }) : super(
           id: id,
           name: name,
@@ -16,6 +17,7 @@ class AvailableUserModel extends AvailableUserEntity {
           department: department,
           phone: phone,
           isActive: isActive,
+         
         );
 
   factory AvailableUserModel.fromJson(Map<String, dynamic> json) {
@@ -25,7 +27,8 @@ class AvailableUserModel extends AvailableUserEntity {
       email: json['email'] ?? '',
       department: json['department'] ?? '',
       phone: json['phone'],
-      isActive: json['isActive'] ?? true,
+      isActive: json['isActive'] == true || json['isActive'] == 'true'
+    
     );
   }
 }

@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:manage_x/core/constants/app_colors.dart';
 import 'package:manage_x/core/widgets/spacing.dart';
 import 'package:manage_x/features/admin/presentation/pages/home/admin_home_screen.dart';
-import 'package:manage_x/features/admin/presentation/pages/user_request/user_request_screen.dart';
-import 'package:manage_x/features/lead/presentation/pages/lead_homescreen.dart';
-import 'package:manage_x/features/lead/presentation/pages/lead_profile.dart';
-import 'package:manage_x/features/lead/presentation/pages/lead_stats.dart';
 import 'package:manage_x/features/user/presentation/pages/user_homescreen.dart';
 import 'package:manage_x/features/user/presentation/pages/user_profile.dart';
 import 'package:manage_x/features/user/presentation/pages/user_stats.dart';
@@ -22,19 +18,19 @@ class _UserBottomNavigationWebState extends State<UserBottomNavigationWeb> {
 
   final List<IconData> _icons = [
     Icons.home_outlined,
-    Icons.bar_chart_outlined,
+  
     Icons.person_2_outlined
   ];
 
   final List<IconData> _selectedIcons = [
     Icons.home,
-    Icons.bar_chart,
+ 
     Icons.person_2
  
   ];
   final List<Widget> _pages = const [
    UserHomescreen(),
-   UserStats(),
+
    UserProfile()
  
 ];

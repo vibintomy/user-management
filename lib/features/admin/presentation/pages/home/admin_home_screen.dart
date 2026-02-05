@@ -10,7 +10,7 @@ class AdminHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveLayout(
       mobile: AdminHomeScreenMobile(),
-      web: AdminHomeScreenWeb(),
+      web: AdminHomeScreenWeb()
     );
   }
 }

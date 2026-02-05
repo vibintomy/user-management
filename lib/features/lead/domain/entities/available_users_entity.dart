@@ -8,6 +8,7 @@ class AvailableUserEntity extends Equatable {
   final String? phone;
   final bool isActive;
 
+
   const AvailableUserEntity({
     required this.id,
     required this.name,
@@ -15,6 +16,7 @@ class AvailableUserEntity extends Equatable {
     required this.department,
     this.phone,
     required this.isActive,
+ 
   });
 
   @override

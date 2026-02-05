@@ -3,6 +3,7 @@ import 'package:manage_x/features/admin/domain/usecases/get_all_projects_usecase
 import 'package:manage_x/features/lead/domain/usecases/assign_users_usecases.dart';
 import 'package:manage_x/features/lead/domain/usecases/create_module_usecases.dart';
 import 'package:manage_x/features/lead/domain/usecases/delete_module_usecases.dart';
+import 'package:manage_x/features/lead/domain/entities/available_users_entity.dart';
 import 'package:manage_x/features/lead/domain/usecases/get_available_users_usecases.dart';
 import 'package:manage_x/features/lead/domain/usecases/get_modules_by_project_usecases.dart';
 import 'package:manage_x/features/lead/domain/usecases/get_project_usecases.dart';
@@ -70,16 +71,33 @@ class LeadProjectBloc extends Bloc<LeadProjectEvent, LeadProjectState> {
 
     final projectResult = await getProjectUseCase(event.projectId);
     final modulesResult = await getModulesByProjectUseCase(event.projectId);
+    final availableUsersResult = await getAvailableUsersUseCase(event.projectId);
 
     await projectResult.fold(
       (failure) async => emit(LeadProjectError(failure.message)),
       (project) async {
         await modulesResult.fold(
           (failure) async => emit(LeadProjectError(failure.message)),
-          (modules) async => emit(ProjectDetailsLoaded(
-            project: project,
-            modules: modules,
-          )),
+          (modules) async {
+            // Available users should not block showing project details.
+            final users = availableUsersResult.fold(
+              (_) => <AvailableUserEntity>[],
+              (users) => users,
+            );
+
+            // If available users failed, keep details + show empty list.
+            final usersError = availableUsersResult.fold(
+              (failure) => failure.message,
+              (_) => null,
+            );
+
+            emit(ProjectDetailsLoaded(
+              project: project,
+              modules: modules,
+              availableUsers: users,
+              availableUsersError: usersError,
+            ));
+          },
         );
       },
     );
@@ -114,6 +132,7 @@ class LeadProjectBloc extends Bloc<LeadProjectEvent, LeadProjectState> {
       startDate: event.startDate,
       endDate: event.endDate,
       notes: event.notes,
+        assignedUsers: event.assignedUsers,
     );
 
     result.fold(

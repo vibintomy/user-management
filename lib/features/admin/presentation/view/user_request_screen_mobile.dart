@@ -91,7 +91,7 @@ class _UserRequestScreenMobileState extends State<UserRequestScreenMobile>
                     },
                   );
                 }
-                return const Center(child: Text('Something went wrong'));
+                return const Center(child: CircularProgressIndicator());
               },
             ),
           ),
@@ -165,7 +165,7 @@ class _UserRequestScreenMobileState extends State<UserRequestScreenMobile>
                     ),
                   );
                 }
-                return const Center(child: Text('Something went wrong'));
+                return const Center(child: CircularProgressIndicator());
               },
             ),
           ),

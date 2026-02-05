@@ -87,6 +87,7 @@ class LeadProjectRepositoryImpl implements LeadProjectRepository {
     DateTime? startDate,
     DateTime? endDate,
     String? notes,
+      List<String>? assignedUsers
   }) async {
     try {
       final data = {
@@ -97,6 +98,8 @@ class LeadProjectRepositoryImpl implements LeadProjectRepository {
         if (startDate != null) 'startDate': startDate.toIso8601String(),
         if (endDate != null) 'endDate': endDate.toIso8601String(),
         if (notes != null) 'notes': notes,
+         if (assignedUsers != null && assignedUsers.isNotEmpty) 
+        'assignedUsers': assignedUsers, 
       };
 
       final module = await remoteDataSource.createModule(projectId, data);
